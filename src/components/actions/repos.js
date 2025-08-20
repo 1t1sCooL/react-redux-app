@@ -1,18 +1,17 @@
 import axios from 'axios';
-import { setRepos } from '../../reducers/reposReducer.js';
+import {setIsFetching, setRepos} from '../../reducers/reposReducer.js';
 
-export const getRepos = (searchQuery = "stars:>1") => {
+export const getRepos = (searchQuery = "stars:>1", currentPage, perPage) => {
     return async (dispatch) => {
+        if (!searchQuery) {
+            searchQuery = "stars:>1";
+        }
         try {
-            console.log('✅ Начинаем загрузку...', searchQuery);
+            dispatch(setIsFetching(true))
             const encodedQuery = encodeURIComponent(searchQuery);
-            const response = await axios.get(`https://api.github.com/search/repositories?q=${encodedQuery}&sort=stars`);
-
-            // ✅ Передаём только массив репозиториев
-            dispatch(setRepos(response.data.items));
+            const response = await axios.get(`https://api.github.com/search/repositories?q=${encodedQuery}&sort=stars&per_page=${perPage}&page=${currentPage}`);
+            dispatch(setRepos(response.data));
         } catch (error) {
-            console.error('Ошибка при загрузке репозиториев:', error);
-            // Опционально: dispatch(setRepos([])) при ошибке
             dispatch(setRepos([]));
         }
     };
