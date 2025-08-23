@@ -8,10 +8,12 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[fullhash].js',
+        publicPath: '/',
     },
     devServer: {
         port: 3000,
         watchFiles: ['src/**/*'],
+        historyApiFallback: true,
     },
     resolve: {
         extensions: ['.js', '.jsx'],
