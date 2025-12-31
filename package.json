@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "homepage": "/react-redux/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "build": "webpack --mode production"
   },
   "private": true,
   "author": "",
