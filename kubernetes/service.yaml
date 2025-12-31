@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-redux
+  namespace: default
+spec:
+  selector:
+    app: react-redux-app
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
